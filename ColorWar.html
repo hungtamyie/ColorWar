@@ -1,95 +1,96 @@
 <html>
     <head>
         <script>
-            var run = true
-            var color1 = ""
-            var color2 = ""
+            var run = true;
+            var color1 = "";
+            var color2 = "";
             function getColor() {
-                var colors =["blue", "red", "green", "purple"]
-                color1 = "blue"
-                color2 ="red"
+                var colors =["blue", "red", "green", "purple"];
+                color1 = "blue";
+                color2 ="red";
             }
-            var position1 = "51"
-            var position2 = "59"
-            var squares1 = 1
-            var squares2 = 1
-            var points1 = 0
-            var points2 = 0
-            var health1 = 20
-            var health2 = 20
-            var move1 = false
-            var move2 = false
-            var on = false
+            var position1 = "51";
+            var position2 = "59";
+            var squares1 = 1;
+            var squares2 = 1;
+            var points1 = 0;
+            var points2 = 0;
+            var health1 = 20;
+            var health2 = 20;
+            var move1 = false;
+            var move2 = false;
+            var on = false;
+
             function start() {
                 if (!on) {
                     for (i=1; i<=9; i++) {
                         for (x=1; x<=9; x++){
                             if (Math.random() < .5) {
-                                document.getElementById(String(i) + String(x)).innerHTML = "  "
-                                document.getElementById(String(i) + String(x)).style.background = "black"
+                                document.getElementById(String(i) + String(x)).innerHTML = "  ";
+                                document.getElementById(String(i) + String(x)).style.background = "black";
                             }
                         }
                     }
-                    getColor()
-                    document.getElementById("51").innerHTML = " "
-                    document.getElementById("51").style.background = color1
-                    document.getElementById("59").innerHTML = " "
-                    document.getElementById("59").style.background = color2
-                    on = true
-                    move1 = true
-                    move2 = true
+                    getColor();
+                    document.getElementById("51").innerHTML = " ";
+                    document.getElementById("51").style.background = color1;
+                    document.getElementById("59").innerHTML = " ";
+                    document.getElementById("59").style.background = color2;
+                    on = true;
+                    move1 = true;
+                    move2 = true;
                 }
 
                 var reload = setInterval(function(){
-                    points1 += squares1
-                    points2 += squares2
-                    document.getElementById("points1").innerHTML = "Blue Points: " + points1
-                    document.getElementById("points2").innerHTML = "Red Points: " + points2
+                    points1 += squares1;
+                    points2 += squares2;
+                    document.getElementById("points1").innerHTML = "Blue Points: " + points1;
+                    document.getElementById("points2").innerHTML = "Red Points: " + points2;
                     
                     if (points1 > 500) {
-                        document.getElementById("win").innerHTML = "BLUE WINS!!!"
-                        clearInterval(reload)
-                        move1 = false
-                        move2 = false
+                        document.getElementById("win").innerHTML = "BLUE WINS!!!";
+                        clearInterval(reload);
+                        move1 = false;
+                        move2 = false;
                     }
                     if (points2 > 500) {
-                        document.getElementById("win").innerHTML = "RED WINS!!!"
-                        clearInterval(reload)
-                        move1 = false
-                        move2 = false
+                        document.getElementById("win").innerHTML = "RED WINS!!!";
+                        clearInterval(reload);
+                        move1 = false;
+                        move2 = false;
                     }
-                    
                 },5000);
             }
             
             document.onkeypress = function(evt) {
-            evt = evt || window.event;
-            var charCode = evt.keyCode || evt.which;
-            var charStr = String.fromCharCode(charCode);
-                if(on){
+                evt = evt || window.event;
+                var charCode = evt.keyCode || evt.which;
+                var charStr = String.fromCharCode(charCode);
+
+                if(on) {
                     if (charStr == "w"){
-                    move(1, "up");
+                        move(1, "up");
                     }
                     if (charStr == "a"){
-                    move(1, "left");
+                        move(1, "left");
                     }
                     if (charStr == "s") {
-                    move(1, "down");
+                        move(1, "down");
                     }
                     if (charStr == "d") {
-                    move(1, "right");
+                        move(1, "right");
                     }
                     if (charStr == "i"){
-                    move(2, "up");
+                        move(2, "up");
                     }
                     if (charStr == "j"){
-                    move(2, "left");
+                        move(2, "left");
                     }
                     if (charStr == "k") {
-                    move(2, "down");
+                        move(2, "down");
                     }
                     if (charStr == "l") {
-                    move(2, "right");
+                        move(2, "right");
                     }
                 }
             };
@@ -99,29 +100,29 @@
                     if (move1) {
                         switch (direction) {
                             case "up":
-                                var elem = document.getElementById(String(Number(position1) - 10))
+                                var elem = document.getElementById(String(Number(position1) - 10));
                                 if (elem && elem.innerHTML === "") {
-                                    document.getElementById(String(position1)).innerHTML = ""
-                                    document.getElementById(String(position1)).style.background = "lightblue"
-                                    position1 = Number(Number(position1) - 10)
+                                    document.getElementById(String(position1)).innerHTML = "";
+                                    document.getElementById(String(position1)).style.background = "lightblue";
+                                    position1 = Number(Number(position1) - 10);
                                     if (String(document.getElementById(position1).style.background) != "rgb(173, 216, 230)") {
-                                         squares1++   
+                                         squares1++;
                                     }
                                     if (String(document.getElementById(position2).style.background) === "rgb(255, 192, 203)") {
-                                         squares2--
+                                         squares2--;
                                     }
-                                    document.getElementById(String(position1)).innerHTML = " "
-                                    document.getElementById(String(position1)).style.background = "blue"
-                                    break                           
+                                    document.getElementById(String(position1)).innerHTML = " ";
+                                    document.getElementById(String(position1)).style.background = "blue";
+                                    break;
                                 }
                                 if (elem && elem.innerHTML === " ") {
-                                    hitPlayer(player, direction)
-                                    break
+                                    hitPlayer(player, direction);
+                                    break;
                                 }
                                 if (elem && elem.innerHTML === "  ") {
-                                    var timesHit = elem.getAttributeNode("timesHit")
+                                    var timesHit = elem.getAttributeNode("timesHit");
                                     if (timesHit && timesHit.value === "3") {
-                                        hitWall(String(Number(position1) - 10))
+                                        hitWall(String(Number(position1) - 10));
                                     }
                                     else {
                                         if (timesHit) {
